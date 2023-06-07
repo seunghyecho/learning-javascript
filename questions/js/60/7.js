@@ -8,30 +8,31 @@
  * 즉, 악수한 총횟수는 nC2.
  * 
  * 악수의 횟수가 실제 (조합을 통해 나온)악수의 총횟수보다 작으면 반복문을 멈추고,
- * 악수의 횟수가 실제 (조합을 통해 나온)악수의 총횟수보다 많다면 참가자의 수를 1씩 더하고, 변수 prevShake 에 악수한 횟수를 값으로 할당한다.
+ * 악수의 횟수가 실제 (조합을 통해 나온)악수의 총횟수보다 많다면 참가자의 수를 1씩 더하고, 
+ * 변수 prevShake 에 악수한 횟수를 값으로 할당한다.
  * 반복문을 멈추고 값을 리턴하면, 악수의 횟수와 악수를 한 참가자의 수가 반환된다.
  */
 
-function handShake(input) {
+/**
+ * @param { n } n 
+ * @returns { Array<number> }
+ */
+function handShake(n) {
     let people = 0;
     let shake = 0;
     let prevShake = 0;
-
     while (true) {
-
-        shake = parseInt(people * (people - 1) / 2, 10);
-        if (input < shake) {
-            console.log('break:', input, shake, people)
+        shake = people * (people - 1) / 2;
+        if (n < shake) {
             break;
         }
-        console.log('====', input, prevShake);
-        prevShake = shake;
-        people++;
 
+        people++;
+        prevShake = shake;
     }
-    return [input - prevShake, people];
+    return [n - prevShake, people]
 }
 
-const input = 59;
-// const input = prompt('행사에서 진행된 악수의 횟수는');
-console.log('행사에서 진행된 악수의 횟수는:', input, handShake(input))
+const n = 59;
+// const n = prompt('행사에서 진행된 악수의 횟수는');
+console.log('행사에서 진행된 악수의 횟수는:', n, handShake(n))
