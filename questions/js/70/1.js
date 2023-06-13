@@ -42,7 +42,7 @@ function dfs(graph, start) {
     stack.push(start);
 
     while (stack.length !== 0) { //stack에서 모두 pop될 때까지
-        let n = stack.pop();
+        let n = stack.pop(); //pop : 배열의 뒤에서부터 뽑기 
         // console.log('n', n);
         if (!visited.includes(n)) { // 방문 여부 확인
             visited.push(n);
