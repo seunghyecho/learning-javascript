@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XMLHttpRequest</title>
+  </head>
+  <body>
+    <div id="user"></div>
+    <script>
+      function httpGet(url, successCallback, errorCallback) {
+        const req = new XMLHttpRequest();
+        req.onload = () => {
+          if (req.status >= 200 && req.status < 300) {
+            successCallback(req.response);
+          } else {
+            errorCallback(new Error(req.statusText));
+          }
+        };
+        req.onerror = errorCallback;
+        req.open("GET", url);
+        req.setRequestHeader("Accept", "application/json"); //http 요청의 헤더를 정의함. Accept 헤더는 요청하는 클라이언트가 받을 수 있는 데이터 타입을 정의함.
+        req.send();
+      }
+      const userEl = document.getElementById("user");
+
+      httpGet(
+        "https://api.github.com/users/seunghyecho",
+        (data) => {
+          const user = JSON.parse(data);
+          userEl.innerHTML = `
+            
+            <img src="${user.avatar_url}"/>
+            <p>이름 :${user.login}, 깃헙주소 :${user.html_url}</p>
+            `;
+        },
+        (error) => alert(error)
+      );
+    </script>
+  </body>
+</html>
